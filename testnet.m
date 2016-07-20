@@ -1,7 +1,7 @@
 function testnet
 
 x = 0:0.01:6;
-x(2,:) = x(1,:);
+x(2,:) = x(1,:)+10;
 y = sin(x(1,:)) + sin(x(2,:)).^2;
 
 train(x',y');
@@ -14,11 +14,11 @@ function [w1,w2] = train(x,y,hn=10)
 
 w1 = randn(size(x,2), hn);
 w2 = randn(hn, size(y,2));
-hl = zeros(hn,1);
 
 xx=x(5,:)';
 
-activation(w1,xx,1)
+hl = forward(w1,xx)
+yy = forward(w2,hl)
 
 end
 
@@ -27,3 +27,9 @@ v = w(:,i)'*x;
 v = 1 / (1 + exp(v));
 end
 
+function o = forward(w,x)
+o = zeros(size(w,2),1);
+for i=1:size(w,2)
+  o(i) = activation(w,x,i);
+end
+end
