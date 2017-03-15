@@ -1,6 +1,6 @@
 function test3
 
-n = 250;
+n = 300;
 
 z = linspace(0,4*pi,n)';
 x = 2*cos(z) + rand(1,n)';
